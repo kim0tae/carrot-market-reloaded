@@ -13,14 +13,8 @@ const formSchema = z
       .trim()
       .transform((username) => `🍕 ${username} 🍔`),
     email: z.string().email().toLowerCase().trim(),
-    password: z
-      .string()
-      .min(PASSWORD_MIN_LENGTH, '패스워드 길이가 너무 짧습니다. 4자 이상 입력해주세요.')
-      .regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
-    confirm_password: z
-      .string()
-      .min(PASSWORD_MIN_LENGTH, '패스워드 길이가 너무 짧습니다. 4자 이상 입력해주세요.')
-      .regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
+    password: z.string().min(PASSWORD_MIN_LENGTH).regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
+    confirm_password: z.string().min(PASSWORD_MIN_LENGTH),
   })
   .refine(checkPasswords, {
     message: '비밀번호가 일치해야합니다.',
